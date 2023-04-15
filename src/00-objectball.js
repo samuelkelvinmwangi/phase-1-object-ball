@@ -116,7 +116,6 @@ function gameObject() {
   }
 
   const gameObj = gameObject();
-  const players = gameObj[team].players;
   
   function homeTeamName() {
     const homeTeamName = gameObj.home.teamName;
@@ -157,6 +156,7 @@ function gameObject() {
   function numPointsScored(playerName) {
     for (const team in gameObj) {
       if (gameObj.hasOwnProperty(team)) {
+        const players = gameObj[team].players;
         if (players.hasOwnProperty(playerName)) {
           return players[playerName].points;
         }
@@ -169,6 +169,7 @@ function gameObject() {
   function shoeSize(playerName) {
     for (const team in gameObj) {
       if (gameObj.hasOwnProperty(team)) {
+        const players = gameObj[team].players;
         if (players.hasOwnProperty(playerName)) {
           return players[playerName].shoe;
         }
@@ -205,6 +206,7 @@ function gameObject() {
       if (gameObj.hasOwnProperty(team)) {
         if (gameObj[team].teamName === teamName) {
           const playerNumbersArray = [];
+          const players = gameObj[team].players;
           for (const player in players) {
             if (players.hasOwnProperty(player)) {
               playerNumbersArray.push(players[player].number);
@@ -222,6 +224,7 @@ function mostPointsScored() {
     let playerName = '';
     for (const team in gameObj) {
       if (gameObj.hasOwnProperty(team)) {
+        const players = gameObj[team].players;
         for (const player in players) {
           if (players.hasOwnProperty(player)) {
             if (players[player].points > maxPoints) {
@@ -262,6 +265,7 @@ function mostPointsScored() {
     let longestName = '';
     for (const team in gameObj) {
       if (gameObj.hasOwnProperty(team)) {
+        const players = gameObj[team].players;
         for (const player in players) {
           if (players.hasOwnProperty(player)) {
             if (player.length > longestName.length) {
@@ -281,6 +285,7 @@ function doesLongNameStealAton() {
     let playerWithMostSteals = '';
     for (const team in gameObj) {
       if (gameObj.hasOwnProperty(team)) {
+        const players = gameObj[team].players;
         for (const player in players) {
           if (players.hasOwnProperty(player)) {
             if (player.length > longestName.length) {
