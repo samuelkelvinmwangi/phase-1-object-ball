@@ -116,6 +116,7 @@ function gameObject() {
   }
 
   const gameObj = gameObject();
+  const players = gameObj[team].players;
   
   function homeTeamName() {
     const homeTeamName = gameObj.home.teamName;
@@ -136,7 +137,7 @@ function gameObject() {
   console.log(homeColors());
 
   function awayColors(){
-    const awayColors = gameObj.home.colors;
+    const awayColors = gameObj.away.colors;
     return awayColors;
   }
   console.log(awayColors());
@@ -152,3 +153,146 @@ function gameObject() {
     return awayPlayers;
   }
   console.log(awayPlayers());
+
+  function numPointsScored(playerName) {
+    for (const team in gameObj) {
+      if (gameObj.hasOwnProperty(team)) {
+        if (players.hasOwnProperty(playerName)) {
+          return players[playerName].points;
+        }
+      }
+    }
+    return null;
+  }
+  
+ 
+  function shoeSize(playerName) {
+    for (const team in gameObj) {
+      if (gameObj.hasOwnProperty(team)) {
+        if (players.hasOwnProperty(playerName)) {
+          return players[playerName].shoe;
+        }
+      }
+    }
+    return null;
+  }
+  
+  function teamColors(teamName) {
+    for (const team in gameObj) {
+      if (gameObj.hasOwnProperty(team)) {
+        if (gameObj[team].teamName === teamName) {
+          return gameObj[team].colors;
+        }
+      }
+    }
+    return null;
+  }
+
+
+  function teamNames() {
+    const teamNamesArray = [];
+    for (const team in gameObj) {
+      if (gameObj.hasOwnProperty(team)) {
+        teamNamesArray.push(gameObj[team].teamName);
+      }
+    }
+    return teamNamesArray;
+  }
+  
+
+  function playerNumbers(teamName) {
+    for (const team in gameObj) {
+      if (gameObj.hasOwnProperty(team)) {
+        if (gameObj[team].teamName === teamName) {
+          const playerNumbersArray = [];
+          for (const player in players) {
+            if (players.hasOwnProperty(player)) {
+              playerNumbersArray.push(players[player].number);
+            }
+          }
+          return playerNumbersArray;
+        }
+      }
+    }
+}
+
+
+function mostPointsScored() {
+    let maxPoints = 0;
+    let playerName = '';
+    for (const team in gameObj) {
+      if (gameObj.hasOwnProperty(team)) {
+        for (const player in players) {
+          if (players.hasOwnProperty(player)) {
+            if (players[player].points > maxPoints) {
+              maxPoints = players[player].points;
+              playerName = player;
+            }
+          }
+        }
+      }
+    }
+    return playerName;
+  }
+  
+  function winningTeam() {
+    let homeTeamPoints = 0;
+    let awayTeamPoints = 0;
+    const homePlayers = gameObj.home.players;
+    for (const player in homePlayers) {
+      if (homePlayers.hasOwnProperty(player)) {
+        homeTeamPoints += homePlayers[player].points;
+      }
+    }
+    const awayPlayers = gameObj.away.players;
+    for (const player in awayPlayers) {
+      if (awayPlayers.hasOwnProperty(player)) {
+        awayTeamPoints += awayPlayers[player].points;
+      }
+    }
+    if (homeTeamPoints > awayTeamPoints) {
+      return gameObj.home.teamName;
+    } else {
+      return gameObj.away.teamName;
+    }
+  }
+
+
+  function playerWithLongestName() {
+    let longestName = '';
+    for (const team in gameObj) {
+      if (gameObj.hasOwnProperty(team)) {
+        for (const player in players) {
+          if (players.hasOwnProperty(player)) {
+            if (player.length > longestName.length) {
+              longestName = player;
+            }
+          }
+        }
+      }
+    }
+    return longestName;
+  }
+
+  
+function doesLongNameStealAton() {
+    let longestName = '';
+    let mostSteals = 0;
+    let playerWithMostSteals = '';
+    for (const team in gameObj) {
+      if (gameObj.hasOwnProperty(team)) {
+        for (const player in players) {
+          if (players.hasOwnProperty(player)) {
+            if (player.length > longestName.length) {
+              longestName = player;
+            }
+            if (players[player].steals > mostSteals) {
+              mostSteals = players[player].steals;
+              playerWithMostSteals = player;
+            }
+          }
+        }
+      }
+    }
+    return longestName === playerWithMostSteals;
+  }
